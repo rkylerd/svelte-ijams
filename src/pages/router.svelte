@@ -1,10 +1,10 @@
 <script lang="ts">
     import { Router, Route } from "svelte-routing";
-    import Header from "./Header.svelte";
-    import Artist from "./Artist.svelte";
     import type AppRoute from "../utils/types/route";
     import Album from "./album.svelte";
     import Search from "./search.svelte";
+    import Header from "../components/header.svelte";
+    import Artist from "./Artist.svelte";
 
     export let url = "";
     const routes: AppRoute[] = [
