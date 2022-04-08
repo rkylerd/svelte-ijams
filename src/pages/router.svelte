@@ -4,7 +4,7 @@
     import Album from "./album.svelte";
     import Search from "./search.svelte";
     import Header from "../components/header.svelte";
-    import Artist from "./Artist.svelte";
+    import Artist from "./artist.svelte";
 
     export let url = "";
     const routes: AppRoute[] = [

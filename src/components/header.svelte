@@ -1,8 +1,20 @@
 <script>
-    import { Link } from "svelte-routing";
+    import { navigate } from "svelte-routing";
+
+    let searchTerm = "";
+    const handleChange = ({ currentTarget: { value = "" } = {} }) => {
+        searchTerm = value;
+    };
+
+    const search = (e) => {
+        e.preventDefault();
+        navigate(`/search?q=${searchTerm.replace(/\s/g, "+")}`);
+    };
 </script>
 
 <div>
-    <Link to="blog">Blog</Link><br />
-    <Link to="about">About</Link>
+    <form on:submit={search}>
+        <input value={searchTerm} on:change={handleChange} />
+        <button type="submit">Go</button>
+    </form>
 </div>
