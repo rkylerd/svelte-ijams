@@ -1,5 +1,4 @@
 <script>
-    import Search from "./Search.svelte";
     import { navigate } from "svelte-routing";
 
     let searchTerm = "";

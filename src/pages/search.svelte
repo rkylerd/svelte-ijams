@@ -1,11 +1,11 @@
 <script lang="ts">
     import { onMount } from "svelte";
     import { getParams } from "../utils";
-    import List from "../components/Song/List.svelte";
+    import SongList from "../components/Song/List.svelte";
 
     let songs = [];
     let loading = false;
-    const refresh = async (e) => {
+    const refresh = async () => {
         if (loading) return;
         console.log(getParams({ q: "string" }));
 
@@ -26,7 +26,7 @@
 </script>
 
 <main>
-    <List {songs} />
+    <SongList {songs} />
 </main>
 
 <style>
