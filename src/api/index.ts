@@ -1,12 +1,12 @@
 export const getArtistAlbums = async (artistId: string) => {
-    const res = await fetch(`http://localhost:3001/api/artistalbums/${artistId}`);
+    const res = await fetch(`api/artistalbums/${artistId}`);
     const { results = [] } = await res.json();
 
     return results.filter(({ wrapperType }) => wrapperType === "collection");
 };
 
 export const getAlbum = async (albumId: string | number) => {
-    const res = await fetch(`http://localhost:3001/api/album/${albumId}`);
+    const res = await fetch(`api/album/${albumId}`);
     const { results } = await res.json();
     const indexOfAlbumInfo = results.findIndex(({ wrapperType }) => wrapperType !== "track")
     const album = {
