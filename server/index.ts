@@ -24,10 +24,10 @@ app.use(cors(corsOptions));
 
 app.use('/api', logger, getApiRoutes());
 
-app.use((req, res: Response) => {
+app.use((_, res: Response) => {
     res.sendFile(path.join(__dirname, "..", "public", "index.html"))
 });
-
-http.listen(3001, function () {
-    console.log('listening on port 3001');
+const port = process.env.PORT || 3001
+http.listen(port, function () {
+    console.log(`listening on port ${port}`);
 });
