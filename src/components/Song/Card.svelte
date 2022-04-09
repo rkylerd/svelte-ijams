@@ -2,7 +2,8 @@
     import { play, stop } from "./song-images";
     import { getContext } from "svelte";
 
-    import { Link } from "svelte-routing";
+    import { Link } from "svelte-navigator";
+
     import { soundData, contextKey } from "../../store/soundData";
     import type Song from "../../utils/types/song";
     import { handleKeyPress } from "../../utils";
@@ -25,7 +26,7 @@
 </script>
 
 <div class="card">
-    <div style="display: 'flex'">
+    <div class="card-actions">
         <div
             class="album-artwork"
             style={artworkBackground}
@@ -49,9 +50,7 @@
             {/if}
         </div>
 
-        <div>
-            <slot />
-        </div>
+        <slot />
     </div>
 
     <div class="details">
@@ -59,13 +58,13 @@
             ><strong
                 ><Link
                     tabindex={0}
-                    to={`album/${song.collectionId}?highlight=${song.trackId}`}
+                    to={`/album/${song.collectionId}?highlight=${song.trackId}`}
                     >{song.trackName}</Link
                 ></strong
             ></span
         >
         <span
-            ><Link tabindex={0} to={`artist/${song.artistId}`}
+            ><Link tabindex={0} to={`/artist/${song.artistId}`}
                 >{song.artistName}</Link
             ></span
         >
@@ -73,6 +72,10 @@
 </div>
 
 <style>
+    .card-actions {
+        display: flex;
+        justify-content: space-between;
+    }
     .playing-indicator {
         margin: auto;
         width: 40px;

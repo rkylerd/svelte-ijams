@@ -1,6 +1,10 @@
 <script lang="ts">
     import { contextKey, soundData } from "../store/soundData";
-    import { handleKeyPress, millisToMinutesAndSeconds } from "../utils";
+    import {
+        formatExplicitness,
+        handleKeyPress,
+        millisToMinutesAndSeconds,
+    } from "../utils";
     import type Song from "../utils/types/song";
     import { stop, play } from "./Song/song-images";
     import { getContext } from "svelte";
@@ -10,6 +14,8 @@
     const { playSong } = getContext(contextKey);
 
     let hoveredIdx: number = -1;
+    let explicitness = (song: Song) =>
+        formatExplicitness(song.trackExplicitness);
 
     let setHoveredIdx = (idx: number) => (hoveredIdx = idx);
 </script>
@@ -48,6 +54,14 @@
                     <span class="track-name">
                         {song.trackName}
                     </span>
+                    <span
+                        class={`track-explicitness ${
+                            formatExplicitness(song.trackExplicitness).lowerCase
+                        }`}
+                    >
+                        {formatExplicitness(song.trackExplicitness)
+                            .firstCharacter}
+                    </span>
                     <span class="track-length">
                         {millisToMinutesAndSeconds(song.trackTimeMillis)
                             .timeStr}
@@ -82,7 +96,7 @@
     .album-songs ul li {
         display: grid;
         font-size: 14px;
-        grid-template-columns: 20px minmax(auto, 90%) 30px;
+        grid-template-columns: 20px minmax(auto, 90%) 15px 30px;
         border-bottom: 1px solid #eff;
         width: 100%;
     }

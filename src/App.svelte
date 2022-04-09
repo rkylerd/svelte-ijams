@@ -20,7 +20,7 @@
 		soundData.update((prev) => {
 			nextSong = prev.upNext?.[0];
 			newSoundData = {
-				song: undefined,
+				song: nextSong,
 				isPlaying: false,
 				upNext: prev.upNext.slice(1),
 				currentTime: 0,
@@ -79,7 +79,9 @@
 		soundData.update((prev) => {
 			if (!prev.song) return prev;
 
-			if (prev.isPlaying) {
+			if (!prev.audioPlayer) {
+				playSong(prev.song);
+			} else if (prev.isPlaying) {
 				prev.audioPlayer?.pause();
 			} else {
 				prev.audioPlayer?.play();

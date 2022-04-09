@@ -9,7 +9,6 @@
     import Slider from "./slider.svelte";
 
     import { contextKey, soundData } from "../../store/soundData";
-    import { millisToMinutesAndSeconds } from "../../utils";
 
     const { playNext, togglePlaying } = getContext(contextKey);
     const updateTime = ({ currentTarget: { value = "0" } = {} }) => {
@@ -50,7 +49,7 @@
                     <FaStepBackward />
                 </div>
             </button>
-            <button on:click={togglePlaying} disabled={!$soundData.audioPlayer}>
+            <button on:click={togglePlaying} disabled={!$soundData.song}>
                 {#if $soundData.isPlaying}
                     <FaPauseCircle />
                 {:else}
@@ -146,13 +145,14 @@
 
     #music-player > div#buttons > * {
         margin: auto 0.1em;
-        /* display: flex; */
+        display: flex;
         width: 1.75rem;
         height: 1.75rem;
         border-radius: 50%;
         background-color: rgb(247, 247, 247);
         cursor: pointer;
         transition: box-shadow 0.3s;
+        align-items: center;
     }
 
     #music-player > div#buttons > .sm-button > * {
@@ -173,18 +173,15 @@
         background-color: #292b2c;
         color: rgb(247, 247, 247);
         margin: auto 0.1em auto 0;
-        width: 2em;
+        min-width: 30px;
         height: 2em;
-        min-width: 20px;
         border-bottom-right-radius: 4px;
         border-top-right-radius: 4px;
         cursor: pointer;
         transition: box-shadow 0.3s;
+        display: flex;
     }
-    /* #music-player > div#caret > svg {
-        width: 100%;
-        height: 100%;
-    } */
+
     @media (max-width: 1600px) {
         #music-player {
             border-bottom-left-radius: 8px;

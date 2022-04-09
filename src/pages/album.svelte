@@ -11,9 +11,9 @@
     import { getContext } from "svelte";
     import { contextKey, soundData } from "../store/soundData";
     import type AlbumCollection from "../utils/types/album-collection";
-    import { Link } from "svelte-routing";
+    import { Link } from "svelte-navigator";
 
-    const { playSong, togglePlaying } = getContext(contextKey);
+    const { playSong, addToUpNext, togglePlaying } = getContext(contextKey);
 
     let hoveredIdx: number = -1;
     const setHoveredIdx = (idx: number) => (hoveredIdx = idx);
@@ -32,15 +32,24 @@
     });
 </script>
 
+<svelte:head>
+    <title>Album: {album?.collectionName}</title>
+</svelte:head>
 <main>
     <div class="album-songs">
-        <section class="flex-row flex-wrap">
+        <section>
             {#if !loading}
-                <img src={album.artworkUrl100} alt={"album artwork"} />
-                <h3>
-                    <Link to={`artist/${album.artistId}`}>{artistName}</Link>
-                </h3>
-                <h4>{albumName}</h4>
+                <div class="album-header">
+                    <img src={album.artworkUrl100} alt={"album artwork"} />
+                    <div>
+                        <h3>
+                            <Link to={`/artist/${album.artistId}`}
+                                >{artistName}</Link
+                            >
+                        </h3>
+                        <h4>{albumName}</h4>
+                    </div>
+                </div>
 
                 <div class="container-normal">
                     <ul on:mouseleave={() => setHoveredIdx(-1)}>
@@ -80,7 +89,13 @@
                                     <span class="track-name">
                                         {song.trackName}
                                     </span>
-                                    <span class="explicitness">
+                                    <span
+                                        class={`explicitness ${
+                                            formatExplicitness(
+                                                song.trackExplicitness
+                                            ).lowerCase
+                                        }`}
+                                    >
                                         {formatExplicitness(
                                             song.trackExplicitness
                                         ).firstCharacter}
@@ -97,16 +112,53 @@
                 </div>
             {/if}
         </section>
-        <hr />
+        {#if album?.songs.length}
+            <hr />
+            <div class="preview-all">
+                <img
+                    src={play}
+                    alt="Play"
+                    on:click={() => {
+                        playSong(album.songs[0]);
+                        addToUpNext(album.songs.slice(1));
+                    }}
+                />
+                <span> Preview all </span>
+            </div>
+        {/if}
     </div>
 </main>
 
 <style>
+    main {
+        background-color: #f7f7f7;
+    }
+    .album-header {
+        display: flex;
+    }
+
+    .album-header > img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .album-header > div {
+        display: flex;
+        flex-direction: column;
+        padding: 0 10px;
+    }
+
+    .album-header > div > h3 {
+        margin-bottom: 0px;
+    }
+
     .album-songs {
         position: relative;
-        background-color: #eee;
         border-radius: 9px;
         min-width: 300px;
+        padding: 10px;
+        /* -webkit-box-shadow: 0 0 4px 1px #1f2b38;
+        box-shadow: 0 0 2px #1f2b38; */
     }
 
     .album-songs ul {
@@ -134,6 +186,17 @@
     }
 
     .highlighted {
-        background-color: #ffff93;
+        background-color: beige;
+    }
+
+    .preview-all {
+        display: flex;
+        align-items: center;
+        font-size: 12px;
+    }
+
+    .preview-all > img {
+        width: 20px;
+        height: auto;
     }
 </style>

@@ -9,7 +9,7 @@
     import { getAlbum } from "../api";
     import AlbumOverview from "./AlbumOverview.svelte";
     import { formatExplicitness, handleKeyPress } from "../utils";
-    import { Link } from "svelte-routing";
+    import { Link } from "svelte-navigator";
 
     export let album: AlbumCollection;
     export let hasFocus: boolean = false;
@@ -159,7 +159,7 @@
         <div class="song-info">
             <span class="song-name small-font link">
                 <strong>
-                    <Link to={`album/${album.collectionId}`}>
+                    <Link to={`/album/${album.collectionId}`}>
                         {album.collectionCensoredName}
                     </Link>
                 </strong>
@@ -230,16 +230,6 @@
         text-align: center;
         align-self: center;
         margin-left: 5px;
-    }
-
-    .cleaned {
-        border-color: silver;
-        color: silver;
-    }
-
-    .explicit {
-        border-color: red;
-        color: red;
     }
 
     .album-songs {

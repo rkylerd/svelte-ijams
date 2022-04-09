@@ -8,7 +8,7 @@
     let albums: Array<AlbumCollection> = [];
     let loading = true;
     let indexOfFocusedAlbum: number = -1;
-    let artistName = albums?.[0]?.artistName || "Artist Name";
+    $: artistName = albums?.[0]?.artistName || "Artist Name";
 
     const handleAlbumClick = (idx: number) => (indexOfFocusedAlbum = idx);
 
@@ -17,6 +17,10 @@
         loading = false;
     });
 </script>
+
+<svelte:head>
+    <title>Artist: {artistName}</title>
+</svelte:head>
 
 <main>
     <div>
@@ -44,6 +48,7 @@
 <style>
     .flex-col-wrap {
         display: flex;
+        justify-content: center;
         flex-wrap: wrap;
         gap: 10px;
     }
