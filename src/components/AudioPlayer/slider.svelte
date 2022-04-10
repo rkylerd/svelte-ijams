@@ -5,6 +5,7 @@
     export let max = 30;
     export let value: number;
     export let disabled: boolean;
+    export let tabindex: number;
     export let updateTime: (e: {
         currentTarget: { value: string };
     }) => void = () => null;
@@ -15,7 +16,15 @@
         {millisToMinutesAndSeconds(value * 1000).timeStr}
     </span>
     <slot id="slot" />
-    <input type="range" {disabled} {value} {min} {max} on:change={updateTime} />
+    <input
+        type="range"
+        {tabindex}
+        {disabled}
+        {value}
+        {min}
+        {max}
+        on:change={updateTime}
+    />
     <span>0:30</span>
 </div>
 

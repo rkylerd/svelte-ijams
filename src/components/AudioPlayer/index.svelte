@@ -44,12 +44,17 @@
                     $soundData.audioPlayer && $soundData.currentTime > 0
                 )}
                 on:click={resetSong}
+                tabindex={!visible && -1}
             >
                 <div>
                     <FaStepBackward />
                 </div>
             </button>
-            <button on:click={togglePlaying} disabled={!$soundData.song}>
+            <button
+                tabindex={!visible && -1}
+                on:click={togglePlaying}
+                disabled={!$soundData.song}
+            >
                 {#if $soundData.isPlaying}
                     <FaPauseCircle />
                 {:else}
@@ -60,6 +65,7 @@
                 class="sm-button"
                 on:click={playNext}
                 disabled={!$soundData.upNext.length}
+                tabindex={!visible && -1}
             >
                 <div>
                     <FaStepForward />
@@ -71,6 +77,7 @@
             {updateTime}
             value={Math.floor($soundData.currentTime || 0)}
             disabled={!$soundData.audioPlayer}
+            tabindex={!visible && -1}
         >
             {#if $soundData.song}
                 <div id="current-song-info">
