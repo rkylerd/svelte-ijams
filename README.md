@@ -7,6 +7,7 @@ Inside the `/server` directory, you will find a Node server built using the Expr
 ## Notes for grading
 
 - Notice that 95% of the site's functionality can also be performed by using your keyboard!
+- This project uses a Svelte router, Svelte context, and Svelte stores.
 - Make sure to extend the audio player by  clicking on the caret icon in the top, right portion of your screen. The audio player shows the currently playing track and provides controls for restarting, pausing, playing, and skipping songs.
 - On the search results screen you can play and add songs to the "up next" queue. You will also use the artist name and song name links to go to the corresponding artist or album pages.
 - On the artist page, you can click on any album to view the songs contained. You can also click the play icon in the bottom, left corner of the album artwork container to play all the songs sequentially.
